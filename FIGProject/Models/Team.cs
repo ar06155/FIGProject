@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace FIGProject.Models
 {
@@ -13,7 +14,8 @@ namespace FIGProject.Models
         [Required]
         public string Location { get; set; }
 
-        [MaxLength(8)] 
-        virtual public List<Player>? Players { get; set; } //Players is nullable so team creation and player assignment can be separate actions
+        [JsonIgnore]
+        [MaxLength(8)]
+        public virtual List<Player>? Players { get; set; } //Players is nullable so team creation and player assignment can be separate actions
     }
 }

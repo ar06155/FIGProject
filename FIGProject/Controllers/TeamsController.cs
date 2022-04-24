@@ -1,17 +1,13 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using FIGProject.DAL;
 using FIGProject.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FIGProject.Controllers
 {
-    [Route("api/[controller]/[action]")] 
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class TeamsController : ControllerBase
     {
@@ -27,7 +23,6 @@ namespace FIGProject.Controllers
         {
             return await _context.Teams.ToListAsync();
         }
-
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Team>>> GetTeamsOrderedByName()
@@ -45,7 +40,6 @@ namespace FIGProject.Controllers
             return teamsOrderedByLocation;
         }
 
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Team>> GetTeam(int id)
         {
@@ -60,7 +54,6 @@ namespace FIGProject.Controllers
         }
 
         [HttpGet("{id}")]
-
         public async Task<ActionResult<List<Player>>> GetPlayersOnTeam(int id)
         {
             var team = await _context.Teams.Include(t => t.Players).SingleOrDefaultAsync(t => t.Id == id);
@@ -124,16 +117,14 @@ namespace FIGProject.Controllers
 
             var player = _context.Players.Find(playerId);
 
-            if(team.Players == null)
+            if (team.Players == null)
             {
                 team.Players.Add(player);
             }
-
-            else if(team.Players.Contains(player) || team.Players.Count == 8)
+            else if (team.Players.Contains(player) || team.Players.Count == 8)
             {
                 return BadRequest();
             }
-
             else
             {
                 team.Players.Add(player);
@@ -158,7 +149,6 @@ namespace FIGProject.Controllers
             return NoContent();
         }
 
-        // POST: api/Teams
         [HttpPost]
         public async Task<ActionResult<Team>> CreateTeam(Team team)
         {

@@ -7,11 +7,10 @@ namespace FIGProject.DAL
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
+
         public DbSet<Player> Players { get; set; }
         public DbSet<Team> Teams { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,15 +19,9 @@ namespace FIGProject.DAL
                     .HasIndex(t => new { t.Name, t.Location })
                     .IsUnique();       //a team has to have unique combination of Name and Location
 
-            //modelBuilder.Entity<Player>()
-            //        .HasOne(p => p.Team)
-            //        .WithMany(t => t.Players)
-            //        .HasForeignKey("TeamId");
+            modelBuilder.Entity<Player>()
+                    .HasOne(p => p.Team)
+                    .WithMany(t => t.Players);
         }
-
-
-
     }
-
-    
 }

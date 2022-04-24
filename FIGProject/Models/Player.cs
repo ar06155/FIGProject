@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace FIGProject.Models
 {
@@ -13,8 +14,7 @@ namespace FIGProject.Models
         [Required]
         public string LastName { get; set; }
 
-        public int? TeamId { get; set; }
-
-        //public Team? Team { get; set; } 
+        [JsonIgnore]
+        public virtual Team? Team { get; set; } //Team is nullable so player creation and team assignment can be separate actions
     }
 }
